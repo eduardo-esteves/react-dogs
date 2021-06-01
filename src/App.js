@@ -9,7 +9,6 @@ import Login from './Login/Login'
 function App() {
   return (
     <div className="App">
-      <h2 className="container">Adicionando meus dois componentes bases Header e Footer</h2>
       <BrowserRouter>
         <Header />
         <Routes>
