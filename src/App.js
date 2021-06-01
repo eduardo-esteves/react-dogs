@@ -9,12 +9,12 @@ import Login from './Login/Login'
 function App() {
   return (
     <div className="App">
-      <h2>Adicionando meus dois componentes bases Header e Footer</h2>
+      <h2 className="container">Adicionando meus dois componentes bases Header e Footer</h2>
       <BrowserRouter>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login/*" element={<Login />} />
         </Routes>
         <Footer />
       </BrowserRouter>
