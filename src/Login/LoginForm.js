@@ -1,4 +1,7 @@
 import React from 'react'
+import Input from '../ui/Input'
+import Button from '../ui/Button'
+
 
 const LoginForm = () => {
 
@@ -25,17 +28,17 @@ const LoginForm = () => {
     <section className="container">
       <h1>Login</h1>
       <form action="" onSubmit={handleSubmit}>
-        <input 
+        <Input 
+          label="Usuário" 
           type="text"
-          value={username}
-          onChange={({ target }) => setUsername(target.value)}
+          id="username"
         />
-        <input 
-          type="text"
-          value={password}
-          onChange={({ target }) => setPassword(target.value)}
+        <Input 
+          label="Senha" 
+          type="password"
+          id="password"
         />
-        <button>Entrar</button>
+        <Button>Entrar</Button>
       </form>
     </section>
   )
