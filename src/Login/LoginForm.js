@@ -2,6 +2,7 @@ import React from 'react'
 import Input from '../ui/Input'
 import Button from '../ui/Button'
 import useForm from '../hooks/useForm'
+import { TOKEN_POST } from '../api'
 
 
 const LoginForm = () => {
@@ -12,21 +13,15 @@ const LoginForm = () => {
   function handleSubmit(event){
     event.preventDefault()
     if(!userName.validate() && !userPass.validate()) return false
-    
-    fetch('https://dogsapi.origamid.dev/json/jwt-auth/v1/token',{
-      method : 'POST',
-      headers : {
-        'Content-Type' : 'application/json'
-      },
-      body : JSON.stringify({
-        username : userName.value,
-        password : userPass.value
-      })
-    }).then( resp => {
-      return resp.json()
-    }).then(userDados => {
-      console.log(userDados)
+    const {url, options} = TOKEN_POST({
+      username : userName.value,
+      password : userPass.value
     })
+    fetch(url, options)
+      .then( resp => resp.json())
+      .then(userDados => {
+        console.log(userDados)
+      })
   }
 
   return(
