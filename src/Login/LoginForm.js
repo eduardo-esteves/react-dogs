@@ -2,26 +2,52 @@ import React from 'react'
 import Input from '../ui/Input'
 import Button from '../ui/Button'
 import useForm from '../hooks/useForm'
-import { TOKEN_POST } from '../api'
+import { TOKEN_POST, USER_GET } from '../api'
 
 
 const LoginForm = () => {
+
   const userName= useForm('email')
   const userPass= useForm()
   console.log({userName, userPass})
+
+  async function getUser(token) {
+    const {url, options} = USER_GET(token)
+    try{
+      const response = await fetch(url, options)
+      if(response.status === 200){
+        const json = await response.json()
+        console.log(json)
+      }
+    }catch(e){
+      console.error()
+    }
+  }
+
+  React.useEffect( () => {
+    const token = window.localStorage.getItem('token')
+    if(token){
+      getUser(token)
+    }
+  })
   
-  function handleSubmit(event){
+  async function handleSubmit(event){
     event.preventDefault()
     if(!userName.validate() && !userPass.validate()) return false
     const {url, options} = TOKEN_POST({
       username : userName.value,
       password : userPass.value
     })
-    fetch(url, options)
-      .then( resp => resp.json())
-      .then(userDados => {
-        console.log(userDados)
-      })
+    try{
+      const response = await fetch(url, options)
+      if(response.status === 200){
+        const json = await response.json()
+        localStorage.setItem('token', json.token)
+      }
+    }catch(e){
+      console.error(e)
+    }
+    
   }
 
   return(

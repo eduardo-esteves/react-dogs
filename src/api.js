@@ -12,3 +12,19 @@ export function TOKEN_POST(body) {
     }
   }
 }
+
+export function USER_GET(token) {
+  return {
+    url: API_URL + '/api/user',
+    options: {
+      method  : 'GET',
+      /**
+       * Como não envio conteúdo não tem necessidade de informar o tipo de counteudo. 
+       * No authorization antes de passar o token tenho que passar o Bearer para informar que é um token.
+      */
+      headers : {
+        'Authorization' : 'Bearer ' + token 
+      }
+    }
+  }
+}
