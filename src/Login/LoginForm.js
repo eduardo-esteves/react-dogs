@@ -2,48 +2,23 @@ import React from 'react'
 import Input from '../ui/Input'
 import Button from '../ui/Button'
 import useForm from '../hooks/useForm'
-import { TOKEN_POST, USER_GET } from '../api'
+import { UserContext } from '../UserContext'
 
 
 const LoginForm = () => {
 
   const userName= useForm('email')
   const userPass= useForm()
-  console.log({userName, userPass})
+  // faço a desestruturação direta ao invés de atribuir o retorno do objeto a uma variavel
+  const {userLogin} = React.useContext(UserContext)
 
-  async function getUser(token) {
-    const {url, options} = USER_GET(token)
-    try{
-      const response = await fetch(url, options)
-      if(response.status === 200){
-        const json = await response.json()
-        console.log(json)
-      }
-    }catch(e){
-      console.error()
-    }
-  }
-
-  React.useEffect( () => {
-    const token = window.localStorage.getItem('token')
-    if(token){
-      getUser(token)
-    }
-  })
-  
+  console.log('LoginForm', {userName, userPass})
+ 
   async function handleSubmit(event){
     event.preventDefault()
     if(!userName.validate() && !userPass.validate()) return false
-    const {url, options} = TOKEN_POST({
-      username : userName.value,
-      password : userPass.value
-    })
     try{
-      const response = await fetch(url, options)
-      if(response.status === 200){
-        const json = await response.json()
-        localStorage.setItem('token', json.token)
-      }
+      userLogin(userName.value, userPass.value)
     }catch(e){
       console.error(e)
     }
