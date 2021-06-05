@@ -11,7 +11,7 @@ const Header = () => {
   <header className={styles.header}>
     <nav className={`container ${styles.nav}`}>
       <Link className={styles.logo} to="/" aria-label="Dogs - Home"><Dogs /></Link>
-      {data.username ? (
+      { (data && data.username) ? (
         <Link className={styles.login} to="/conta"> {data.nome} </Link>
       ) : (
         <Link className="styles.login" to="/login"> Login / Criar </Link>

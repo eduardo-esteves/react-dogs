@@ -1,8 +1,10 @@
+import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import LoginForm from './LoginForm'
 import LoginCreate from './LoginCreate'
 import PasswordRecover from './PasswordRecover'
 import PasswordReset from './PasswordReset'
+import { UserContext } from '../UserContext'
 
 /**
  * Este é um componente que faz uso do Nested Routes
@@ -17,6 +19,8 @@ import PasswordReset from './PasswordReset'
  * o componente LoginForm por padrão.
  */
 const Login = () => {
+  const {login, navigate} = React.useContext(UserContext)
+  if(login) navigate('/conta')
   return(
     <div>
       <Routes>
