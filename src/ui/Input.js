@@ -1,5 +1,6 @@
 import React from 'react' 
 import styles from './Input.module.css'
+import PropTypes from 'prop-types'
 
 const Input = ({ label, type, id, value, onChange, error, onBlur }) => {
   return(
@@ -19,6 +20,21 @@ const Input = ({ label, type, id, value, onChange, error, onBlur }) => {
       {error && <p className={styles.error}>{error}</p>}
     </div>
   )
+}
+
+Input.defaultProps = {
+  value     : '',
+  error     : null
+}
+
+Input.propTypes = {
+  label     : PropTypes.string.isRequired,
+  type      : PropTypes.string.isRequired,
+  id        : PropTypes.string,
+  value     : PropTypes.string.isRequired,
+  onChange  : PropTypes.func.isRequired,
+  error     : PropTypes.string,
+  onBlur    : PropTypes.func
 }
 
 export default Input
