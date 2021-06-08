@@ -1,8 +1,12 @@
 import React from 'react'
+import styles from './LoginForm.module.css'
 import Input from '../ui/Input'
 import Button from '../ui/Button'
 import useForm from '../hooks/useForm'
 import { UserContext } from '../UserContext'
+import Error from '../ui/Error'
+import {Link} from 'react-router-dom'
+import styleBtn from '../ui/Button.module.css'
 
 
 const LoginForm = () => {
@@ -28,9 +32,9 @@ const LoginForm = () => {
   }
 
   return(
-    <section className="container">
-      <h1>Login</h1>
-      <form action="" onSubmit={handleSubmit}>
+    <section className="container anime-left">
+      <h1 className="title">Login</h1>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <Input 
           label="Usuário" 
           type="text"
@@ -47,8 +51,14 @@ const LoginForm = () => {
           ? ( <Button disabled>Carregando...</Button> )
           : ( <Button>Entrar</Button> )
         }
-        { error && <p>{error}</p> }
+        { error && <Error>{error}</Error> }
       </form>
+      <Link className={styles.forgot} to="/login/perdeu">Perdeu a senha?</Link>
+      <div className={styles.cadastro}>
+        <h2 className={styles.subtitle}>Cadastre-se</h2>
+        <p>Ainda não possui conta? Cadastre-se no site.</p>
+        <Link className={styleBtn.button} to="/login/cadastro">Cadastro</Link>
+      </div>
     </section>
   )
 }

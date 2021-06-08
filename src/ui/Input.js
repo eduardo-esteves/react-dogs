@@ -1,6 +1,7 @@
 import React from 'react' 
 import styles from './Input.module.css'
 import PropTypes from 'prop-types'
+import Error from './Error'
 
 const Input = ({ label, type, id, value, onChange, error, onBlur }) => {
   return(
@@ -17,7 +18,7 @@ const Input = ({ label, type, id, value, onChange, error, onBlur }) => {
         onChange={onChange}
         onBlur={onBlur}
       />
-      {error && <p className={styles.error}>{error}</p>}
+      {error && <Error>{error}</Error>}
     </div>
   )
 }
