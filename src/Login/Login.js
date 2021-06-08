@@ -5,6 +5,7 @@ import LoginCreate from './LoginCreate'
 import PasswordRecover from './PasswordRecover'
 import PasswordReset from './PasswordReset'
 import { UserContext } from '../UserContext'
+import styles from './Login.module.css'
 
 /**
  * Este é um componente que faz uso do Nested Routes
@@ -23,14 +24,16 @@ const Login = () => {
   //debugger //eslint-disable-line no-debugger
   if(login) return (<Navigate to="/conta" />)
   return(
-    <div>
-      <Routes>
-        <Route path="/" element={<LoginForm />} />
-        <Route path="criar" element={<LoginCreate />} /> {/* Exemplo /login/criar */}
-        <Route path="recuperar-senha" element={<PasswordRecover />} />
-        <Route path="resetar-senha" element={<PasswordReset />} />
-      </Routes>
-    </div>
+    <section className={styles.login}>
+      <div className={styles.forms}>
+        <Routes>
+          <Route path="/" element={<LoginForm />} />
+          <Route path="criar" element={<LoginCreate />} /> {/* Exemplo /login/criar */}
+          <Route path="recuperar-senha" element={<PasswordRecover />} />
+          <Route path="resetar-senha" element={<PasswordReset />} />
+        </Routes>
+      </div>
+    </section>
   )
 }
 
