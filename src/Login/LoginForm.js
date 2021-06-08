@@ -10,7 +10,7 @@ const LoginForm = () => {
   const userName= useForm('email')
   const userPass= useForm()
   // faço a desestruturação direta ao invés de atribuir o retorno do objeto a uma variavel
-  const { userLogin, error, loading, navigate } = React.useContext(UserContext)
+  const { userLogin, error, loading, navigate, login } = React.useContext(UserContext)
 
   console.log('LoginForm', {userName, userPass})
  
@@ -22,9 +22,7 @@ const LoginForm = () => {
     }catch(e){
       console.error(e)
     }finally{
-      userName.setValue('')
-      userPass.setValue('')
-      navigate('/conta')
+      if(login) navigate('/conta')
     }
     
   }

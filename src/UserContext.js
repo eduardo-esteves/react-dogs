@@ -14,33 +14,7 @@ export const UserStorage = (props) => {
   const [error, setError]       = React.useState(null)
   const navigate                = useNavigate()
 
-  React.useEffect( () => {
-    async function autoLogin(){
-      const token = window.localStorage.getItem('token')
-      if(token){
-        try{
-          setError(null)
-          setLogin(true)
-          const {url, options} = TOKEN_VALIDATE_POST(token)
-          const response = await fetch(url, options)
-          if( !response.ok ){
-            throw new Error('Token inválido')
-          }
-          //const json     = await response.json()
-          //console.log(json)
-          await getUser(token)
-        }catch(e){
-          //Inserindo neste ponto eu tenho a garantia que todos os estados serão resetados também.
-          await userLogout()
-          console.error(e)
-        }finally{
-          setLoading(false)
-        }
-      }
-    }
-    autoLogin()
-  }, [userLogout])
-
+  
   async function getUser(token){
     const {url, options}  = USER_GET(token)
     const response        = await fetch(url, options)
@@ -72,14 +46,41 @@ export const UserStorage = (props) => {
     }
   }
 
-  async function userLogout(){
+  const userLogout = React.useCallback( async function (){
     setData(null)
     setError(null)
     setLoading(false)
     setLogin(false)
     window.localStorage.removeItem('token')
     navigate('/login')
-  }
+  }, [navigate])
+
+  React.useEffect( () => {
+    async function autoLogin(){
+      const token = window.localStorage.getItem('token')
+      if(token){
+        try{
+          setError(null)
+          setLogin(true)
+          const {url, options} = TOKEN_VALIDATE_POST(token)
+          const response = await fetch(url, options)
+          if( !response.ok ){
+            throw new Error('Token inválido')
+          }
+          //const json     = await response.json()
+          //console.log(json)
+          await getUser(token)
+        }catch(e){
+          //Inserindo neste ponto eu tenho a garantia que todos os estados serão resetados também.
+          await userLogout()
+          console.error(e)
+        }finally{
+          setLoading(false)
+        }
+      }
+    }
+    autoLogin()
+  }, [userLogout])
 
   return (
     <UserContext.Provider value={{userLogin, userLogout, data, error, loading, login, navigate}}>
