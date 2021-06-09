@@ -4,6 +4,10 @@ const types = {
   email: {
     regex: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.?([a-z]+)?$/i,
     error: 'Preencha um email válido'
+  },
+  password: {
+    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
+    error: 'A senha deve conter no mimino 8 caracteres 1 caracter maíusculo, 1 minúsculo e 1 digito.'
   }
 }
 // type virá como uma string por isso da necessidade de types[type] ao invés de types.type

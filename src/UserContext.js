@@ -42,7 +42,6 @@ export const UserStorage = (props) => {
       setLogin(false)
     }finally{
       setLoading(false)
-      setLogin(false)
     }
   }
 
