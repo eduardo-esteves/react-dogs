@@ -6,15 +6,17 @@ import { CREATE_USER } from '../api'
 import { default as Erro } from '../ui/Error'
 import PropTypes from 'prop-types'
 import { UserContext } from '../UserContext'
+import useFetch from '../hooks/useFetch'
 
 const LoginCreate = () => {
 
   const userName    = useForm()
   const email       = useForm('email')
   const password    = useForm()
-  const { userLogin, login, navigate } = React.useContext(UserContext)
-
-  const [message, setMessage] = React.useState('')
+  
+  const { userLogin, navigate } = React.useContext(UserContext)
+  const { loading, error, request } = useFetch()
+  
 
   async function handleSubmit(event){
     event.preventDefault()
@@ -24,21 +26,14 @@ const LoginCreate = () => {
       username  : userName.value,
       password  : password.value
     })
-
-    try{
-      const response = await fetch(url, options)
-      if(response.status !== 200){
-        throw new Error('Não foi possível inserir o novo usuário')
-      }
-      await response.json()
-      debugger //eslint-disable-line no-debugger
-      userLogin(userName.value, password.value)
-      if(login === true){
+    
+    const { response } = await request(url, options)
+    if(response.status === 200){
+      await userLogin(userName.value, password.value)
+      if(error === null){
         navigate('/conta')
       }
-    }catch(e){
-      setMessage(e.message)
-    }
+    }    
   }
 
   return(
@@ -66,9 +61,9 @@ const LoginCreate = () => {
           label="Password"
           {...password}
         />
-        <Button>Cadastrar</Button>
+        { loading ? <Button disabled>Cadastrando...</Button> : <Button>Cadastrar</Button> }
       </form>
-      <Erro>{message}</Erro>
+      <Erro>{(error !== null) ? error : ''}</Erro>
     </section>
   )
 
