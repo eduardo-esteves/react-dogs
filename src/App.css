@@ -63,6 +63,10 @@ button, input {
   z-index: -1;
 }
 
+.title::first-letter{
+  text-transform: capitalize;
+}
+
 .container {
   max-width: 50rem;
   padding: 0 1rem;

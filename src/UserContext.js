@@ -23,7 +23,7 @@ export const UserStorage = (props) => {
     setLogin(true)
     console.log('UserContext -> dados usuário', json)
   }
-
+  // {id: 3964, username: "miteste", nome: "miteste", email: "miteste@teste.com.br"}
   async function userLogin(username, password){
     const {url, options} = TOKEN_POST({username, password})
     try{
