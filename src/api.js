@@ -53,3 +53,17 @@ export function CREATE_USER(body){
     }
   }
 }
+
+export function PHOTO_POST(token, formData) {
+  return {
+    url: API_URL + '/api/photo',
+    options: {
+      method  : 'POST',
+      headers : {
+        'Authorization' : 'Bearer ' + token 
+      },
+      body: formData
+    }
+  }
+}
+
