@@ -1,6 +1,10 @@
 import React from 'react' 
 
 const types = {
+  number: {
+    regex: /^[0-9]+$/,
+    error: 'Não é um número'
+  },
   email: {
     regex: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.?([a-z]+)?$/i,
     error: 'Preencha um email válido'
